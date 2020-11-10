@@ -32,6 +32,8 @@ module Simpler
       action = route.action
 
       make_response(controller, action)
+    rescue NoMethodError => e
+      not_found
     end
 
     private
@@ -54,5 +56,8 @@ module Simpler
       controller.make_response(action)
     end
 
+    def not_found
+      Rack::Response.new(nil, 404, {}).finish
+    end
   end
 end
