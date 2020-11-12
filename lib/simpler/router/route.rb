@@ -15,6 +15,11 @@ module Simpler
         @method == method && @path =~ path
       end
 
+      def inject_params!(env, path)
+        match_data = @path.match(path)
+        env['Url-Params'] = match_data.named_captures.transform_keys!(&:to_sym)
+      end
+
       private
 
       def make_path(path)

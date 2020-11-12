@@ -43,7 +43,7 @@ module Simpler
     end
 
     def params
-      @request.params
+      @request.params.merge(@request.env['Url-Params'])
     end
 
     def render(template)
