@@ -1,4 +1,5 @@
 require_relative 'view'
+require_relative 'utils/headers'
 
 module Simpler
   class Controller
@@ -52,6 +53,10 @@ module Simpler
 
     def status(code)
       @response.status = code
+    end
+
+    def headers
+      Headers.new(@response)
     end
   end
 end
