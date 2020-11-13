@@ -47,8 +47,13 @@ module Simpler
       @request.params.merge(@request.env['Url-Params'])
     end
 
-    def render(template)
-      @request.env['simpler.template'] = template
+    def render(data)
+      if data.is_a?(String)
+        @request.env['simpler.template'] = data
+      else
+        @request.env['simpler.template.type'] = data.keys.first
+        @request.env['simpler.template.data'] = data.values.first
+      end
     end
 
     def status(code)
