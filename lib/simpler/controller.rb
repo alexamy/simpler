@@ -1,4 +1,5 @@
 require_relative 'view'
+require_relative 'utils/headers'
 
 module Simpler
   class Controller
@@ -43,12 +44,24 @@ module Simpler
     end
 
     def params
-      @request.params
+      @request.params.merge(@request.env['Url-Params'])
     end
 
-    def render(template)
-      @request.env['simpler.template'] = template
+    def render(data)
+      if data.is_a?(String)
+        @request.env['simpler.template'] = data
+      else
+        @request.env['simpler.template.type'] = data.keys.first
+        @request.env['simpler.template.data'] = data.values.first
+      end
     end
 
+    def status(code)
+      @response.status = code
+    end
+
+    def headers
+      Headers.new(@response)
+    end
   end
 end
