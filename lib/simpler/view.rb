@@ -14,7 +14,7 @@ module Simpler
 
     def render(binding)
       type = @env['simpler.template.type'] || RENDER_TYPE_DEFAULT
-      send("render_#{type}", binding)
+      send("render_#{type}", binding) # can be renderer classes
     end
 
     private

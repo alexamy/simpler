@@ -20,7 +20,7 @@ module Simpler
       path = env['PATH_INFO']
 
       route = @routes.find { |route| route.match?(method, path) }
-      route.inject_params!(env, path)
+      route.inject_params!(env, path) if route
       route
     end
 

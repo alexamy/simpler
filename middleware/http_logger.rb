@@ -18,8 +18,10 @@ class HttpLogger
     template = env['simpler.template_name']
 
     @logger.info("Request: #{method} #{uri}")
-    @logger.info("Handler: #{controller.class.name}##{action}")
-    @logger.info("Params: #{controller.send(:params)}")
+    if controller
+      @logger.info("Handler: #{controller.class.name}##{action}")
+      @logger.info("Params: #{controller.send(:params)}")
+    end
     @logger.info("Response: #{status} [#{headers['Content-Type']}] #{template}")
 
     response
